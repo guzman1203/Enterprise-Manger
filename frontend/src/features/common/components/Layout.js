@@ -2,7 +2,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import NavBarHome from './NavBar_Home';
+import NavBar from './NavBar';
 import NavBarOrders from '../../orders/components/NavBar_Orders';
 
 const Layout = ({ children }) => {
@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
 
   return (
     <div>
-      {location.pathname.startsWith('/sales-and-services') ? <NavBarOrders /> : <NavBarHome />}
+      {location.pathname.startsWith('/sales-and-services') ? <NavBarOrders /> : <NavBar />}
       <main>{children}</main>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getCustomers, deleteCustomer } from '../../../services/api';
 
-const CustomerList = () => {
+const ListCustomers = () => {
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
@@ -47,4 +47,4 @@ const CustomerList = () => {
   );
 };
 
-export default CustomerList;
+export default ListCustomers;
