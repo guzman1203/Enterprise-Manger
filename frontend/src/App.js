@@ -28,18 +28,19 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home/>} />
 
-                    <Route path="/create-customer" element={<CustomerCreate />} />
-                    <Route path="/create-inventory" element={<InventoryProductCreate />} />
-                    <Route path="/create-order-detail" element={<OrderDetailCreate />} />
-                    <Route path="/create-order" element={<OrderCreate />} />
-                    <Route path="/customer-list" element={<CustomerList />} />
-                    <Route path="/inventory-list" element={<InventoryProductList />} />
-                    <Route path="/order-list" element={<OrderList />} />
-                    <Route path="/order-detail-list" element={<OrderDetailList />} />
-                    <Route path="/customer-orders" element={<CustomerOrders customerId={1} />} />
-                    <Route path="/active-orders" element={<SalesOrderPage />} />
-                    <Route path="/sales-and-services/search" element={<OrderSearchPage />} />
-                    <Route path="/sales-and-services" element={<SalesOrderPage />} />
+                    <Route path="/create_customer" element={<CustomerCreate />} />
+                    <Route path="/create_inventory" element={<InventoryProductCreate />} />
+                    <Route path="/create_order-detail" element={<OrderDetailCreate />} />
+                    <Route path="/create_order" element={<OrderCreate />} />
+
+                    <Route path="/read_customers" element={<CustomerList />} />
+                    <Route path="/read_inventory" element={<InventoryProductList />} />
+                    <Route path="/read_orders" element={<OrderList />} />
+                    <Route path="/read_order-details" element={<OrderDetailList />} />
+                    <Route path="/customer_orders" element={<CustomerOrders customerId={1} />} />
+                    <Route path="/active_orders" element={<SalesOrderPage />} />
+                    <Route path="/sales_and_services/search" element={<OrderSearchPage />} />
+                    <Route path="/sales_and_services" element={<SalesOrderPage />} />
 
                 </Routes>
             </Layout>

@@ -27,10 +27,10 @@ const NavBarHome = () => {
             </ul>
             <li>READ/DELETE Lists</li>
             <ul>
-              <li><Link to="/customer_list">Customer List</Link></li>
-              <li><Link to="/inventory_list">Inventory List</Link></li>
-              <li><Link to="/order-detail_list">Order Detail List</Link></li>
-              <li><Link to="/order_list">Order List</Link></li>
+              <li><Link to="/read_customers">Customer List</Link></li>
+              <li><Link to="/read_inventory">Inventory List</Link></li>
+              <li><Link to="/read_order-details">Order Detail List</Link></li>
+              <li><Link to="/read_orders">Order List</Link></li>
             </ul>
             <li>UPDATE</li>
             <ul>

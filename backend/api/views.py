@@ -9,12 +9,12 @@ from rest_framework import status
 
 from .models import Customer, Inventory, OrderDetail, Order
 
-from .serializers import CustomerREADSerializer, InventoryREADSerializer, OrderDetailREADSerializer, OrderREADSerializer
-from .serializers import CustomerCREATESerializer, InventoryCREATESerializer, OrderDetailCREATESerializer, OrderCREATESerializer 
+from .serializers import CustomerREAD, InventoryREAD, OrderDetailREAD, OrderREAD
+from .serializers import CustomerCREATE, InventoryCREATE, OrderDetailCREATE, OrderCREATE 
 
-from .serializers import CustomerOrderInfoSerializer
+from .serializers import CustomerOrders
 
-from .serializers import ProductListOrderDetailSerializer
+from .serializers import OrderDetailAndProductTable
 
 from .serializers import SearchOrdersSerializer
 
@@ -38,8 +38,8 @@ class CustomersViewSet(viewsets.ModelViewSet):
         Custom get serializer method to handle the viewing or creating/editing of a customer.
         """
         if self.action in ['create', 'update']:
-            return CustomerCREATESerializer
-        return CustomerREADSerializer
+            return CustomerCREATE
+        return CustomerREAD
     
     def create(self, request, *args, **kwargs):
         """
@@ -70,8 +70,8 @@ class InventoryViewSet(viewsets.ModelViewSet):
         Custom get serializer method to handle the viewing or creating/editing of an inventory product.
         """
         if self.action in ['create', 'update']:
-            return InventoryCREATESerializer
-        return InventoryREADSerializer
+            return InventoryCREATE
+        return InventoryREAD
     
     def create(self, request, *args, **kwargs):
         """
@@ -102,8 +102,8 @@ class OrderDetailsViewSet(viewsets.ModelViewSet):
         Custom get serializer method to handle the viewing or creating/editing of an order detail.
         """
         if self.action in ['create', 'update']:
-            return OrderDetailCREATESerializer
-        return OrderDetailREADSerializer
+            return OrderDetailCREATE
+        return OrderDetailREAD
     
     def create(self, request, *args, **kwargs):
         """
@@ -134,8 +134,8 @@ class OrdersViewSet(viewsets.ModelViewSet):
         Custom get serializer method to handle the viewing or creating/editing of an order.
         """
         if self.action in ['create', 'update']:
-            return OrderCREATESerializer
-        return OrderREADSerializer
+            return OrderCREATE
+        return OrderREAD
     
     def create(self, request, *args, **kwargs):
         """
@@ -162,14 +162,14 @@ class OrdersViewSet(viewsets.ModelViewSet):
 
 # Retrieves and lists all the order details for a specific customer based on their customer ID
 class CustomerOrdersView(generics.ListAPIView):
-    serializer_class = OrderDetailREADSerializer
+    serializer_class = OrderDetailREAD
 
     def get_queryset(self):
         customer_id = self.kwargs['customer_id']
         # filter for the orders made by the customer with the given id
         customer_orderDetails = OrderDetail.objects.filter(customer_id=customer_id)
         
-        od = OrderDetailREADSerializer(customer_orderDetails, many=True).data
+        od = OrderDetailREAD(customer_orderDetails, many=True).data
 
         #debugging
         for orderDetail in od:
@@ -179,7 +179,7 @@ class CustomerOrdersView(generics.ListAPIView):
     
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
-        order_details = OrderDetailREADSerializer(queryset, many=True).data
+        order_details = OrderDetailREAD(queryset, many=True).data
 
         #debugging
         # for orderDetail in order_details:
@@ -190,7 +190,7 @@ class CustomerOrdersView(generics.ListAPIView):
 # Retrives the information on a single customer
 class CustomerDetailView(generics.RetrieveAPIView):
     queryset = Customer.objects.all()
-    serializer_class = CustomerREADSerializer
+    serializer_class = CustomerREAD
     lookup_field = 'id'
 
 # Retrieves the orders made by a customer
@@ -201,7 +201,7 @@ class CustomerOrdersAndProductsView(generics.ListAPIView):
     This view retrieves all orders made by a customer, along with the associated product details,
     using the customer's ID provided in the URL.
     """
-    serializer_class = OrderDetailREADSerializer
+    serializer_class = OrderDetailREAD
 
     def get_queryset(self):
         """
@@ -238,7 +238,7 @@ class CustomerOrdersAndProductsView(generics.ListAPIView):
             Response: A Response object containing serialized order details.
         """
         queryset = self.get_queryset()
-        order_details = CustomerOrderInfoSerializer(queryset, many=True).data
+        order_details = CustomerOrders(queryset, many=True).data
 
         #debugging
         # for orderDetail in order_details:
@@ -254,7 +254,7 @@ class ActiveOrdersView(generics.ListAPIView):
     """
     API view to list all active orders.
     """
-    serializer_class = OrderREADSerializer
+    serializer_class = OrderREAD
 
     def get_queryset(self):
         """
@@ -282,7 +282,7 @@ class ActiveOrdersView(generics.ListAPIView):
             Response: A Response object containing serialized active orders.
         """
         queryset = self.get_queryset()
-        order_details = OrderREADSerializer(queryset, many=True).data
+        order_details = OrderREAD(queryset, many=True).data
 
         #debugging
         # for orderDetail in order_details:
@@ -294,7 +294,7 @@ class CancelledOrdersView(generics.ListAPIView):
     """
     API view to list all cancelled orders.
     """
-    serializer_class = OrderREADSerializer
+    serializer_class = OrderREAD
 
     def get_queryset(self):
         """
@@ -321,7 +321,7 @@ class CancelledOrdersView(generics.ListAPIView):
             Response: A Response object containing serialized cancelled orders.
         """
         queryset = self.get_queryset()
-        order_details = OrderREADSerializer(queryset, many=True).data
+        order_details = OrderREAD(queryset, many=True).data
 
         #debugging
         # for orderDetail in order_details:
@@ -333,7 +333,7 @@ class CompletedOrdersView(generics.ListAPIView):
     """
     API view to list all completed orders.
     """
-    serializer_class = OrderREADSerializer
+    serializer_class = OrderREAD
 
     def get_queryset(self):
         """
@@ -360,7 +360,7 @@ class CompletedOrdersView(generics.ListAPIView):
             Response: A Response object containing serialized completed orders.
         """
         queryset = self.get_queryset()
-        order_details = OrderREADSerializer(queryset, many=True).data
+        order_details = OrderREAD(queryset, many=True).data
 
         #debugging
         # for orderDetail in order_details:
@@ -372,7 +372,7 @@ class NonActiveOrdersView(generics.ListAPIView):
     """
     API view to list all non active orders.
     """
-    serializer_class = OrderREADSerializer
+    serializer_class = OrderREAD
 
     def get_queryset(self):
         """
@@ -400,7 +400,7 @@ class NonActiveOrdersView(generics.ListAPIView):
             Response: A Response object containing serialized non active orders.
         """
         queryset = self.get_queryset()
-        order_details = OrderREADSerializer(queryset, many=True).data
+        order_details = OrderREAD(queryset, many=True).data
 
         #debugging
         # for orderDetail in order_details:
@@ -413,7 +413,7 @@ class NonActiveOrdersView(generics.ListAPIView):
 ### 
 
 class OrderProductListView(generics.ListAPIView):
-    serializer_class = ProductListOrderDetailSerializer
+    serializer_class = OrderDetailAndProductTable
 
     def get_queryset(self):
         order_number = self.kwargs['order_number']

@@ -2,72 +2,72 @@ from rest_framework import serializers
 from .models import CustomerContactMethod, Customer,Inventory, OrderDetail, Order
 
 
-###
-###   Create serializers
-###
+##############################
+###   Create serializers   ###
+##############################
 
-class CustomerCREATESerializer(serializers.ModelSerializer):
+class CustomerCREATE(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ['entry_created_at','entry_modified_at','is_active','customer_type','first_name','last_name','address','address2','country']
 
-class InventoryCREATESerializer(serializers.ModelSerializer):
+class InventoryCREATE(serializers.ModelSerializer):
     class Meta:
         model = Inventory
         fields = ['entry_created_at','entry_modified_at','description','cost','units_in_stock',]
 
-class OrderDetailCREATESerializer(serializers.ModelSerializer):
+class OrderDetailCREATE(serializers.ModelSerializer):
     class Meta:
         model = OrderDetail
         fields = ['order_number','product_id','entry_created_at','entry_modified_at','qty_ordered']
 
-class OrderCREATESerializer(serializers.ModelSerializer):
+class OrderCREATE(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['entry_created_at','entry_modified_at','order_type','is_cancelled','order_total','is_completed','customer_id',]
 
 
 
-###
-###   Read serializers
-###
+############################
+###   Read serializers   ###
+############################
 
-class CustomerREADSerializer(serializers.ModelSerializer):
+class CustomerREAD(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = '__all__'
 
-class InventoryREADSerializer(serializers.ModelSerializer):
+class InventoryREAD(serializers.ModelSerializer):
     class Meta:
         model = Inventory 
         fields = '__all__'
 
-class OrderDetailREADSerializer(serializers.ModelSerializer):
-    product = InventoryREADSerializer(read_only=True)
+class OrderDetailREAD(serializers.ModelSerializer):
+    product = InventoryREAD(read_only=True)
 
     class Meta:
         model = OrderDetail
         fields = '__all__'
 
-class OrderREADSerializer(serializers.ModelSerializer):
+class OrderREAD(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
         
 
+################################
+###   Specific Serializers   ###
+################################
 
-###   Customer Order Informaton
-class CustomerOrderInfoSerializer(serializers.ModelSerializer):
-    product_id = InventoryREADSerializer(read_only=True)
-    #order = OrderREADSerializer(read_only=True)
+class CustomerOrders(serializers.ModelSerializer):
+    product_id = InventoryREAD(read_only=True)
+    order_number = OrderREAD(read_only=True)
 
     class Meta:
         model = OrderDetail
         fields = ['id', 'order_number','product_id','customer_id','entry_created_at','entry_modified_at','qty_ordered']
 
-
-###   Order's Product Table Infomartion
-class ProductListProductSerializer(serializers.ModelSerializer):
+class InventoryTable(serializers.ModelSerializer):
     class Meta:
         model = Inventory
         fields = [
@@ -76,8 +76,8 @@ class ProductListProductSerializer(serializers.ModelSerializer):
         ]
 
 ###   Order's detail product information
-class ProductListOrderDetailSerializer(serializers.ModelSerializer):
-    product = ProductListProductSerializer(source='product_id', read_only=True)
+class OrderDetailAndProductTable(serializers.ModelSerializer):
+    product = InventoryTable(source='product_id', read_only=True)
 
     class Meta:
         model = OrderDetail
