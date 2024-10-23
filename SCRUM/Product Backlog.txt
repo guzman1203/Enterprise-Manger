@@ -1,0 +1,4 @@
+- rename the model names so that in pgadmin they're not lowcase and hard to read
+    ie: CustomersContactMethod -> api_customerscontactmethod
+
+- 
