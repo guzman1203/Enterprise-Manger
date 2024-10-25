@@ -1,25 +1,27 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Layout from './features/common/components/Layout';
+import Layout from './common/Layout.js';
 
-import CustomerCreate from './features/customers/components/Customer_Create';
-import CustomerList from './features/customers/components/Customer_List';
+import CustomerCreate from './components/CRUD/create/CreateCustomer.js';
+import ListCustomers from './components/CRUD/read/ListCustomers.js';
 
 
-import OrderCreate from './features/orders/components/Order_Create';
-import OrderList from './features/orders/components/Order_List';
+import OrderCreate from './components/CRUD/create/Order_Create.js';
+import OrderList from './components/CRUD/read/Order_List.js';
 
-import InventoryProductCreate from './features/inventory/components/InventoryProduct_Create';
-import InventoryProductList from './features/inventory/components/InventoryProduct_List';
+import CreateInventory from './components/CRUD/create/CreateInventory.js';
+import InventoryProductList from './components/CRUD/read/ListInventory.js';
 
-import OrderDetailCreate from './features/order-details/components/OrderDetail_Create';
-import OrderDetailList from './features/order-details/components/OrderDetail_List';
+import CreateOrderDetail from './components/CRUD/create/CreateOrderDetail.js';
+import OrderDetailList from './components/CRUD/read/ListOrderDetails.js';
 //import OrderRead from './components/OrderRead';
 
-import CustomerOrders from './features/customers/components/CustomerOrders';
+import CustomerOrders from './components/CRUD/read/CustomerOrders.js';
 
-import SalesOrderPage from './features/orders/Order_Page';
-import OrderSearchPage from './features/orders/Order_Search_Page';
+import SalesOrderPage from './pages/Order_Page.js';
+import OrderSearchPage from './pages/Order_Search_Page.js';
+
+import SalesPackingSlips from './pages/Sales_Packing_Slips.js';
 
 function App() {
     return (
@@ -29,18 +31,23 @@ function App() {
                     <Route path="/" element={<Home/>} />
 
                     <Route path="/create_customer" element={<CustomerCreate />} />
-                    <Route path="/create_inventory" element={<InventoryProductCreate />} />
-                    <Route path="/create_order-detail" element={<OrderDetailCreate />} />
+                    <Route path="/create_inventory" element={<CreateInventory />} />
+                    <Route path="/create_order-detail" element={<CreateOrderDetail />} />
                     <Route path="/create_order" element={<OrderCreate />} />
 
-                    <Route path="/read_customers" element={<CustomerList />} />
+                    <Route path="/read_customers" element={<ListCustomers />} />
                     <Route path="/read_inventory" element={<InventoryProductList />} />
                     <Route path="/read_orders" element={<OrderList />} />
                     <Route path="/read_order-details" element={<OrderDetailList />} />
+                    
                     <Route path="/customer_orders" element={<CustomerOrders customerId={1} />} />
+                    
                     <Route path="/active_orders" element={<SalesOrderPage />} />
-                    <Route path="/sales_and_services/search" element={<OrderSearchPage />} />
+                    
                     <Route path="/sales_and_services" element={<SalesOrderPage />} />
+                    <Route path="/sales_and_services/search" element={<OrderSearchPage />} />
+                    
+                    <Route path="/sales_packing_slips" element={<SalesPackingSlips />} />
 
                 </Routes>
             </Layout>
