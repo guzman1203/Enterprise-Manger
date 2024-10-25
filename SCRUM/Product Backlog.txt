@@ -1,4 +1,8 @@
 - rename the model names so that in pgadmin they're not lowcase and hard to read
     ie: CustomersContactMethod -> api_customerscontactmethod
 
-- 
+- rename in the models order_number to order_id
+
+- MODELS problem: determine if Packing Slip copies the information of Orders, and Packing Slip Details copies the information of Order Details
+
+- in frontend src/common/api.js update the CRUD-DELETEs to account for orders and its details. Configure that when you delete an order, you delete it's order details.
