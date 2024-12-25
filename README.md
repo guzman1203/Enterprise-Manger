@@ -1,3 +1,4 @@
+UNDER CONSTRUCTION
 Robust web application for managing sales, inventory, material management, and finances in a company. This application simplifies business operations and enhances efficiency by integrating key management functionalities into a single platform.
 
 Features
