@@ -4,11 +4,17 @@ Robust web application for managing sales, inventory, material management, and f
 
 Features
 Sales Management: Track and manage customer orders, sales pipelines, and revenue metrics.
+
 Inventory Control: Monitor stock levels, automate restocking, and reduce waste.
+
 Material Management: Streamline procurement, supplier management, and resource allocation.
+
 Financial Management: Manage expenses, generate financial reports, and ensure accurate bookkeeping.
+
 User Roles: Role-based access control for Admins, Managers, and Employees.
+
 Analytics Dashboard: Real-time insights and visualizations for data-driven decisions.
+
 Tech Stack
 Frontend: React.js / Angular / Vue.js
 Backend: Node.js (Express) / Django / Flask
@@ -54,6 +60,7 @@ Create your feature branch: git checkout -b feature-name
 Commit your changes: git commit -m "Add new feature"
 Push to the branch: git push origin feature-name
 Open a pull request.
+
 License
 This project is licensed under the MIT License.
 
